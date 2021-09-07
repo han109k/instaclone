@@ -19,7 +19,7 @@ BEGIN
   COMMIT;
 
 END
-$$
+$$;
 
 -- userid, array[image url]
 call create_post('1','{"http://aws.com"}');
@@ -52,7 +52,7 @@ BEGIN
   COMMIT;
 
 END
-$$
+$$;
 
 -- post id, user id
 call delete_post('1','1');
@@ -78,8 +78,8 @@ BEGIN
 
   COMMIT;
 
-END;
-$$
+END
+$$;
 
 -- user id, post id
 CALL like_post(3,2);
@@ -105,8 +105,9 @@ BEGIN
 
   COMMIT;
 
-END;
-$$
+END
+$$;
+
 -- CALL procedure
 CALL unlike_post(3,2);
 
@@ -132,8 +133,8 @@ BEGIN
 
   COMMIT;
 
-END;
-$$
+END
+$$;
 
 -- CALL procedure
 -- post_id, user_id, comment text
@@ -161,8 +162,9 @@ BEGIN
 
   COMMIT;
 
-END;
-$$
+END
+$$;
+
 -- CALL procedure
 -- comment_id, post_id, user_id
 call delete_comment(9, 4, 1);

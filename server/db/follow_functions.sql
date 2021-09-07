@@ -1,5 +1,5 @@
 -- Function for calling follow_user procedure if necessary
-CREATE FUNCTION follow_user(
+CREATE OR REPLACE FUNCTION follow_user(
   userid users.user_id%type,
   followid users.user_id%type
 )
@@ -16,7 +16,7 @@ BEGIN
   SELECT COUNT(*)
   INTO following_count
   FROM follows
-  WHERE user_id = userid AND follows = followid;
+  WHERE user_id = userid AND follows = followid
 
   -- if already follows return 0 else return 1
   IF following_count > 0 THEN
@@ -41,7 +41,7 @@ BEGIN
 
   return success;
 
-END;
+END
 $$;
 
 -- CALL function
@@ -93,8 +93,8 @@ BEGIN
 
   RETURN success;
 
-END;
+END
 $$;
 
 -- CALL procedure
-select unfollow_user(1,5);
+SELECT unfollow_user(1,5);

@@ -18,7 +18,7 @@ BEGIN
 
   COMMIT;
 
-END;
+END
 $$;
 
 -- comment id, user id
@@ -51,7 +51,7 @@ BEGIN
 
   COMMIT;
 
-END;
+END
 $$;
 
 -- comment id, user id
@@ -78,7 +78,7 @@ BEGIN
 
   COMMIT;
 
-END;
+END
 $$;
 
 -- reply id, user id
@@ -111,7 +111,7 @@ BEGIN
 
   COMMIT;
 
-END;
+END
 $$;
 
 -- reply id, user id
@@ -139,11 +139,11 @@ BEGIN
 
   COMMIT;
 
-END;
+END
 $$;
 
 -- comment id, user id, reply text
-call create_reply(13, 1, 'ok boommer');
+call create_reply(13, 1, 'ok just a test reply');
 
 
 --* DELETE REPLY COMMENT procedure
@@ -172,7 +172,7 @@ BEGIN
 
   COMMIT;
 
-END;
+END
 $$;
 
 -- reply id, user id
