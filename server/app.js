@@ -1,7 +1,23 @@
-const express = require("express")
+require("dotenv").config();
+const express = require("express");
 const mountRoutes = require("./routes");
 const app = express();
-require('dotenv').config();
+const cors = require("cors");
+const morgan = require("morgan");
+
+var corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
+// Debuggin purposes
+app.use(morgan("common"));
+// Enable Cross Origin Policy
+app.use(cors(corsOptions));
+// Parsing incoming requests with JSON payloads
+app.use(express.json());
+//* Parsing request body
+app.use(express.urlencoded({ extended: true }));
 
 /**
  ** ROUTES
@@ -9,15 +25,16 @@ require('dotenv').config();
 mountRoutes(app);
 
 app.use("*", (req, res) => {
-  res.send("<h1>404 Not Found</h1>")
-})
+  res.status(404).send({ message: "Resource Not Found" });
+});
 
 app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
-})
+  console.error(err.stack);
+  res.status(500).json({ message: "Something is broken!" });
+  next();
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log("Listening at port ", port);
-})
+});

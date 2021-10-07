@@ -2,4 +2,5 @@
 
 ## !!! Work in progress
 
-Instagram clone on Postgres, Express.js, React, NodeJS.
+Frontend : React, TailwindCSS <br>
+Backend : Express, PostgreSQL
