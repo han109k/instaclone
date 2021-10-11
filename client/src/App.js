@@ -21,11 +21,11 @@ function App() {
     ApiCaller.get("/accounts/verify")
       .then((res) => {
         console.log("@isAuth :", res);
-        res.status === 200
-          ? dispatch({ type: "AUTH", payload: true })
-          : dispatch({ type: "AUTH", payload: false });
+        if (res.status === 200) dispatch({ type: "AUTH", payload: true });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
   };
 
   useEffect(() => {
@@ -39,8 +39,12 @@ function App() {
           {!isAuthenticated ? <Login /> : <Home />}
         </Route>
         <Route exact path="/upload" component={CloudinaryForm} />
-        <Route exact path="/accounts/register" component={Register} />
-        <Route exact path="/accounts/login" component={Login} />
+        <Route exact path="/accounts/register">
+          {!isAuthenticated ? <Register /> : <Redirect to="/" />}
+        </Route>
+        <Route exact path="/accounts/login">
+          {!isAuthenticated ? <Login /> : <Redirect to="/" />}
+        </Route>
       </Switch>
     </Router>
   );

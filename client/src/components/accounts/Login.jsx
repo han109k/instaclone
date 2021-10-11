@@ -27,13 +27,12 @@ function Login() {
     ApiCaller.post("/accounts/login", body)
       .then((res) => {
         console.log(res.status);
-        if (res.status === 200) {
-          dispatch({ type: "AUTH", payload: true });
-        } else {
-          console.log("@login not authorized");
-        }
+        if (res.status === 200) dispatch({ type: "AUTH", payload: true });
       })
-      .catch((error) => console.error("Login @handleSubmit", error));
+      .catch((error) => {
+        console.log(error.response.data.message);
+        dispatch({ type: "AUTH", payload: false })
+      });
   };
 
   const handleRegister = () => {

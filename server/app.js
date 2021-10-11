@@ -24,14 +24,14 @@ app.use(express.urlencoded({ extended: true }));
  */
 mountRoutes(app);
 
-app.use("*", (req, res) => {
-  res.status(404).send({ message: "Resource Not Found" });
-});
-
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).json({ message: "Something is broken!" });
   next();
+});
+
+app.use("*", (req, res) => {
+  res.status(404).send({ message: "Resource Not Found" });
 });
 
 const port = process.env.PORT || 3000;

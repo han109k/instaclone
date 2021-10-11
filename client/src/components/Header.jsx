@@ -11,11 +11,12 @@ export const Header = () => {
     ApiCaller.get("/accounts/logout")
       .then((res) => {
         console.log("@isAuth :", res);
-        res.status === 200
-          ? dispatch({ type: "AUTH", payload: false })
-          : dispatch({ type: "AUTH", payload: true });
+        if(res.status === 200) {
+          dispatch({ type: "AUTH", payload: false })
+          history.push("/")
+        }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("@logOut :", error));
   };
 
   const handleSelection = (link) => {

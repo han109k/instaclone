@@ -29,20 +29,13 @@ function Register() {
 
     ApiCaller.post("/accounts/register", body)
       .then((res) => {
-        const parseRes = res.data;
-        
-        console.log(parseRes);
-        // Setting localStorage to use jwt
-        // if(parseRes.token) {
-        //   localStorage.setItem("config", parseRes.token);
-
-        //   dispatch({type: "AUTH", payload: true});
-        // } else {
-        //   dispatch({type: "AUTH", payload: false});
-        // }
-
+        console.log(res.status);
+        if (res.status === 201) dispatch({ type: "AUTH", payload: true });
       })
-      .catch((error) => console.error("Register @handleSubmit:", error));
+      .catch((error) => {
+        console.log(error.response.data.message);
+        dispatch({ type: "AUTH", payload: false })
+      });
   };
 
   const handleLogIn = () => {

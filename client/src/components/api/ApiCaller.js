@@ -5,6 +5,7 @@ const baseURL = (process.env.NODE_ENV === "production"
   : "http://localhost:5000/v1");
 
 export default axios.create({
+  // This is needed for passing HTTP-only cookies to express server
   withCredentials: true,
   baseURL,
 });
