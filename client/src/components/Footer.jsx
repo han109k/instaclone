@@ -2,8 +2,8 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="static md:absolute bottom-0 text-xs text-center w-screen my-5 text-gray-500 cursor-default">
-      <div className="mx-auto px-5">
+    <footer className="flex flex-col flex-wrap text-center text-xs text-gray-500 cursor-default">
+      <div>
         <span className="mx-3">About</span>
         <span className="mx-3">Blog</span>
         <span className="mx-3">Jobs</span>
@@ -14,7 +14,7 @@ function Footer() {
         <span className="mx-3">Hastags</span>
         <span className="mx-3">Locations</span>
       </div>
-      <div className="mx-auto mt-5">
+      <div className="mx-auto my-5">
         <p className="text-gray-500 text-xs">
           &copy; 2021 Insramtag
         </p>

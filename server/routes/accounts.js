@@ -18,6 +18,7 @@ router.route("/register").post(
       `Email: ${email}, Full name: ${fullname}, User name: ${username}, password: ${password}`
     );
 
+    // Check if user already exist
     const query = await db.query(
       "SELECT * FROM users WHERE email = $1 OR user_name = $2",
       [email, username]
@@ -25,18 +26,20 @@ router.route("/register").post(
 
     if (query.rows.length !== 0) {
       console.log(query);
-      return res.status(401).json({ message: "User already exist" });
+      return res.status(401).json({ message: "Account already exist. Try to log in instead." });
     }
 
     const salt = await bcrypt.genSalt(10); // 10 => salt rounds
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Insert user information into database
     const user = await db.query(
       "INSERT INTO users (email, user_name, full_name, password, profile_pic) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [email, username, fullname, hashedPassword, defaultImgUrl]
     );
 
     console.log(user);
+    // Generate token to be used as auth token
     const token = jwtGenerator(user.rows[0].user_name);
 
     res.setHeader(
@@ -48,7 +51,7 @@ router.route("/register").post(
         sameSite: true,
       })
     );
-    res.status(201).json({ message: "Registered" });
+    res.status(201).json({ message: "Registered", user: user.rows[0].user_name});
   })
 );
 
@@ -80,7 +83,8 @@ router.route("/login").post(
         .json({ message: "Password or Email is incorrect" });
     }
 
-    const token = jwtGenerator(query.rows[0].user_name);
+    const username = query.rows[0].user_name;
+    const token = jwtGenerator(username);
     res.setHeader(
       "Set-Cookie",
       cookie.serialize("userToken", token, {
@@ -91,14 +95,14 @@ router.route("/login").post(
       })
     );
 
-    res.status(200).json({ message: "Logged in" });
+    res.status(200).json({ message: "Logged in", user: `${username}` });
   })
 );
 
 router.route("/logout").get((req, res, next) => {
   res.setHeader(
     "Set-Cookie",
-    cookie.serialize("userToken", "null", {
+    cookie.serialize("userToken", '', {
       httpOnly: true,
       maxAge: 1,
       expries: -1,

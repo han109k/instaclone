@@ -13,24 +13,26 @@ import Home from "./components/Home";
 import CloudinaryForm from "./components/accounts/Cloudinary";
 import Register from "./components/accounts/Register";
 import Login from "./components/accounts/Login";
+import UserPage from "./components/user/UserPage";
 
 function App() {
-  const { isAuthenticated, dispatch } = useGlobalContext();
+  const { isAuthenticated, username, dispatch } = useGlobalContext();
 
   const isAuth = async () => {
+    console.log(isAuthenticated);
     ApiCaller.get("/accounts/verify")
       .then((res) => {
         console.log("@isAuth :", res);
-        if (res.status === 200) dispatch({ type: "AUTH", payload: true });
+        if (res.status === 200) dispatch({ type: "AUTH", isAuth: true, user: username});
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+        error.response ? console.log(error.response.data.message) : console.log("No response @isAuth()");
       });
   };
 
   useEffect(() => {
     isAuth();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <Router>
@@ -45,6 +47,7 @@ function App() {
         <Route exact path="/accounts/login">
           {!isAuthenticated ? <Login /> : <Redirect to="/" />}
         </Route>
+        <Route path="/username" component={UserPage}/>
       </Switch>
     </Router>
   );

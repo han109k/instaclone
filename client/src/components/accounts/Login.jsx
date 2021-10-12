@@ -26,12 +26,12 @@ function Login() {
 
     ApiCaller.post("/accounts/login", body)
       .then((res) => {
-        console.log(res.status);
-        if (res.status === 200) dispatch({ type: "AUTH", payload: true });
+        console.log(res);
+        if (res.status === 200) dispatch({ type: "AUTH", isAuth: true, user: res.data.user });
       })
       .catch((error) => {
         console.log(error.response.data.message);
-        dispatch({ type: "AUTH", payload: false })
+        dispatch({ type: "AUTH", isAuth: false });
       });
   };
 
@@ -41,8 +41,8 @@ function Login() {
 
   return (
     <>
-      <article className="flex flex-wrap justify-center mt-36">
-        <div className="flex flex-col flex-grow-0 flex-shrink-0">
+      <article className="relative flex flex-row flex-wrap content-center justify-center min-h-screen">
+        <div className="flex flex-col">
           <div className="md:border-2 md:bg-white border-gray-200 px-5 pt-5 pb-10">
             <img src={Logo} width="175px" alt="logo" className="mx-auto mb-5" />
             {/* Form */}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ApiCaller from "../api/ApiCaller";
+import Footer from "../Footer";
 const FormData = require("form-data");
 
 function CloudinaryForm() {
@@ -23,44 +24,23 @@ function CloudinaryForm() {
   };
 
   return (
-    <div>
-      <h1 className="text-center">Image Upload</h1>
-      <article className="mt-10 mx-auto max-w-md rounded-l-md border border-r-1 border-gray-300 p-5">
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-10">
-            <label htmlFor="file" className="col-span-2 text-sm font-light">
-              Select File
-            </label>
-            <input
-              type="file"
-              className="col-span-8 rounded text-sm"
-              name="image"
-              onChange={(e) => setFiles(e.target.files[0])}
-              multiple
-              required
-            />
-          </div>
-          {/* Name */}
-          <div className="grid grid-cols-10 mt-5">
-            <label htmlFor="name" className="col-span-2 text-sm font-light">
-              Enter your name
-            </label>
-            <input
-              type="text"
-              className="col-span-8 rounded text-sm"
-              name="name"
-              onChange={(e) => setName(e.target.value)}
-              placeholder="iamtheuser"
-              required
-            />
-          </div>
-          <button className="mt-8 bg-gray-600 text-white px-4 py-1 rounded-lg">
-            Save
-          </button>
+    <>
+      <section className="relative flex flex-row flex-wrap justify-center content-center min-h-screen">
+        <form className="flex flex-col gap-5">
+          <label htmlFor="">First Name</label>
+          <input type="text" />
+          <label htmlFor="">Last Name</label>
+          <input type="text" />
+          <label htmlFor="">Address</label>
+          <input type="text" />
+          <label htmlFor="">Request</label>
+          <input type="text" />
+          <input type="file" name="" id="" />
+          <input type="search" name="" id="" />
         </form>
-      </article>
-      <img src="insramtag.svg" width="130px" />
-    </div>
+      </section>
+      <Footer />
+    </>
   );
 }
 

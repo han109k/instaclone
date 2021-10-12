@@ -19,6 +19,7 @@ function Register() {
     fullname: "",
     password: "",
   });
+  const [errorMsg, setErrorMsg] = useState('');
 
   // const { email, password, fullname, password } = inputs;
 
@@ -34,7 +35,8 @@ function Register() {
       })
       .catch((error) => {
         console.log(error.response.data.message);
-        dispatch({ type: "AUTH", payload: false })
+        setErrorMsg(error.response.data.message);
+        dispatch({ type: "AUTH", payload: false });
       });
   };
 
@@ -44,7 +46,7 @@ function Register() {
 
   return (
     <>
-      <article className="flex flex-wrap justify-center mt-10">
+      <article className="relative flex flex-row flex-wrap content-center justify-center min-h-screen">
         <div className="mt-10">
           <img
             src={registerImg}
@@ -53,8 +55,8 @@ function Register() {
             className="hidden lg:block"
           />
         </div>
-        <div className="flex flex-col flex-grow-0 flex-shrink-0 relative max-w-xs max-h-full mt-5 md:ml-5">
-          <div className="md:border-2 md:bg-white border-gray-200 px-10 pt-5 pb-10">
+        <div className="flex flex-col max-w-xs max-h-full mt-5 md:ml-5">
+          <div className="md:border-2 md:bg-white border-gray-200 px-10 py-5">
             <img src={Logo} width="175px" alt="logo" className="mx-auto mb-5" />
             <p className="text-gray-500 font-bold text-center mb-5">
               Sign up to see photos from your friends.
@@ -106,6 +108,9 @@ function Register() {
               By signing up, you agree to our <b>Terms, Data Policy</b> and{" "}
               <b>Cookie Policy</b>.
             </p>
+            <p className="text-red-500 text-xs font-bold mt-3 text-center">
+              {errorMsg}
+            </p>
           </div>
           {/* Direct to log in page */}
           <div className="md:bg-white md:border-2 text-sm text-center font-normal py-5 mt-3">
@@ -126,8 +131,7 @@ function Register() {
             </div>
           </div>
         </div>
-      </article>
-
+      </article>      
       {/* Footer */}
       <Footer />
     </>

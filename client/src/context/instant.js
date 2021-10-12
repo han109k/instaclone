@@ -5,7 +5,7 @@ const reducer = (state, action) => {
   console.log(state, action);
   switch (action.type) {
     case "AUTH":
-      return { ...state, isAuthenticated: action.payload };
+      return { ...state, isAuthenticated: action.isAuth, username: action.user };
     default:
       throw new Error();
   }

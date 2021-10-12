@@ -4,7 +4,7 @@ import { useGlobalContext } from "../context/InstantProvider";
 import ApiCaller from "./api/ApiCaller";
 
 export const Header = () => {
-  const { dispatch } = useGlobalContext();
+  const { username, dispatch } = useGlobalContext();
   let history = useHistory();
 
   const logOut = () => {
@@ -12,7 +12,7 @@ export const Header = () => {
       .then((res) => {
         console.log("@isAuth :", res);
         if(res.status === 200) {
-          dispatch({ type: "AUTH", payload: false })
+          dispatch({ type: "AUTH", isAuth: false, user: ''})
           history.push("/")
         }
       })
@@ -33,6 +33,12 @@ export const Header = () => {
         className="pr-5 underline"
       >
         Upload
+      </span>
+      <span
+        onClick={() => handleSelection("/username")}
+        className="pr-5 underline"
+      >
+        {username}
       </span>
       <span
         onClick={() => handleSelection("/accounts/register")}
