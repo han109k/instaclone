@@ -118,7 +118,7 @@ router.route("/verify").get(authorize, (req, res, next) => {
   try {
     if (req.user) {
       console.log(req.user);
-      return res.status(200).json({ message: "Authorized" });
+      return res.status(200).json({ message: "Authorized", user: `${req.user}` });
     }
     res.status(401).json({ message: "Unauthorized" });
   } catch (err) {

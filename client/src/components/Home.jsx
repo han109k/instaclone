@@ -3,10 +3,12 @@ import { Header } from "./Header";
 
 function Home() {
   return (
-    <div>
+    <section className="h-screen">
       <Header />
-      <h1 className="text-center">Insramtag</h1>
-    </div>
+      <main className="">
+        <h1 className="text-center">Insramtag</h1>
+      </main>
+    </section>
   )
 }
 

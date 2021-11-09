@@ -12,7 +12,18 @@
   h3 {
     @apply text-lg font-bold;
   }
-  button {
+  input[type="search"] {
+    width: 165px;
+    padding-left: 65px;
+    background: url("./components/imgs/search.png");
+    background-repeat: no-repeat;
+    background-size: 10px;
+    background-position-y: center;
+    background-position-x: 50px;
+  }
+  input[type="search"]:focus {
+    padding-left: 15px;
+    background: none;
   }
 }
 

@@ -3,6 +3,7 @@
  */
 import React, { useContext, useReducer } from "react";
 import reducer from "./instant";
+import { IconContext } from "react-icons";
 
 const InstaContext = React.createContext();
 

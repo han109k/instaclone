@@ -23,7 +23,7 @@ function App() {
     ApiCaller.get("/accounts/verify")
       .then((res) => {
         console.log("@isAuth :", res);
-        if (res.status === 200) dispatch({ type: "AUTH", isAuth: true, user: username});
+        if (res.status === 200) dispatch({ type: "AUTH", isAuth: true, user: res.data.user});
       })
       .catch((error) => {
         error.response ? console.log(error.response.data.message) : console.log("No response @isAuth()");
@@ -32,7 +32,7 @@ function App() {
 
   useEffect(() => {
     isAuth();
-  }, [isAuthenticated]);
+  }, []);
 
   return (
     <Router>
@@ -47,7 +47,7 @@ function App() {
         <Route exact path="/accounts/login">
           {!isAuthenticated ? <Login /> : <Redirect to="/" />}
         </Route>
-        <Route path="/username" component={UserPage}/>
+        <Route path={`/${username}`} component={UserPage}/>
       </Switch>
     </Router>
   );
