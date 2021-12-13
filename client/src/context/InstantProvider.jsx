@@ -9,7 +9,7 @@ const InstaContext = React.createContext();
 
 const defaultAppState = {
   isAuthenticated: false,
-  username: ''
+  user: {}
 };
 
 function InstantProvider({ children }) {

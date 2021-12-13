@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/InstantProvider";
 import ApiCaller from "../api/ApiCaller";
 // Components
@@ -12,7 +12,7 @@ import playstoreImg from "../imgs/playstore.png";
 
 function Register() {
   const { dispatch } = useGlobalContext();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [inputs, setInputs] = useState({
     email: "",
     username: "",
@@ -41,7 +41,7 @@ function Register() {
   };
 
   const handleLogIn = () => {
-    history.push("/accounts/login");
+    navigate("/accounts/login");
   };
 
   return (

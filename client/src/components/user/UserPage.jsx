@@ -6,13 +6,13 @@ import { Header } from "../Header";
 
 function UserPage() {
   const data = {};
-  const { username } = useGlobalContext();
-  const [user, setUser] = useState({});
+  const { user } = useGlobalContext();
+  const [account, setAccount] = useState({});
 
   const fetchUser = async () => {
-    const res = await ApiCaller.get(`/${username}`);
+    const res = await ApiCaller.get(`/${user.username}`);
     console.log(res.data);
-    setUser(res.data)
+    setAccount(res.data);
   };
 
   useEffect(() => {
@@ -22,24 +22,28 @@ function UserPage() {
   return (
     <section>
       <Header />
-      <main className="h-full flex mt-10">
-        <div className="flex-initial w-8/12 mx-auto">
-          <header className="grid grid-cols-6">
-            {/* Profile Photo */}
-            <div className="col-span-2 mx-auto">
-              <img src={user.profile_pic} width="150px" className="rounded-full"/>
+      <main className="h-full flex flex-col w-full justify-center">
+        <header className="flex-initial flex flex-row justify-center mt-10">
+          {/* Profile Photo */}
+          <div className="flex-initial w-4/12">
+            <img
+              src={account.profile_pic}
+              width="150px"
+              className="rounded-full mx-auto"
+            />
+          </div>
+          {/* Details */}
+          <section className="flex flex-col flex-initial w-6/12">
+            <h2 className="text-3xl font-light mb-5">{account.user_name}</h2>
+            <div className="flex flex-row gap-10 mb-5">
+              <p><b>{account.posts}</b> Posts</p>
+              <p><b>{account.followers}</b> Followers</p>
+              <p><b>{account.following}</b> Following</p>
             </div>
-            {/* Details */}
-            <section className="flex flex-col flex-initial col-span-4">
-              <h1>{user.user_name}</h1>
-              <p>Posts: {user.posts}</p>
-              <p>Followers: {user.followers}</p>
-              <p>Following: {user.following}</p>
-              <p>{user.full_name}</p>
-              <p>{user.bio}</p>
-            </section>
-          </header>
-        </div>
+            <p><b>{account.full_name}</b></p>
+            <p>{account.bio}</p>
+          </section>
+        </header>
       </main>
     </section>
   );

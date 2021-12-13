@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../../context/InstantProvider";
 import ApiCaller from "../api/ApiCaller";
 // Components
@@ -11,13 +11,13 @@ import playstoreImg from "../imgs/playstore.png";
 
 function Login() {
   const { dispatch } = useGlobalContext();
-
+  const [message, setMessage] = useState('');
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,12 +31,12 @@ function Login() {
       })
       .catch((error) => {
         console.log(error.response.data.message);
-        dispatch({ type: "AUTH", isAuth: false });
+        setMessage(error.response.data.message);
       });
   };
 
   const handleRegister = () => {
-    history.push("/accounts/register");
+    navigate("/accounts/register");
   };
 
   return (
@@ -67,7 +67,9 @@ function Login() {
               />
               <button className="btn-fblue mt-1">Sign Up</button>
             </form>
-            <p className="text-blue-900 text-xs font-normal mt-10 text-center">
+            {/* Error Message */}
+            <p className="text-red-500 text-xs font-normal pt-6 text-center">{message}</p>
+            <p className="text-blue-900 text-xs font-normal mt-2 text-center">
               Forgot password?
             </p>
           </div>

@@ -6,12 +6,6 @@
   h1 {
     @apply text-4xl font-bold;
   }
-  h2 {
-    @apply text-2xl font-bold;
-  }
-  h3 {
-    @apply text-lg font-bold;
-  }
   input[type="search"] {
     width: 165px;
     padding-left: 65px;
@@ -24,6 +18,9 @@
   input[type="search"]:focus {
     padding-left: 15px;
     background: none;
+  }
+  nav {
+    height: 54px;
   }
 }
 
